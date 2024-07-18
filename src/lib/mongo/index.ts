@@ -1,7 +1,11 @@
-import { Db, MongoClient } from "mongodb";
+import { Db, MongoClient, ServerApiVersion } from "mongodb";
+import dotenv from 'dotenv';
 
-let uri = process.env.NEXT_PUBLIC_MONGO_URI || "";
-let dbName = process.env.NEXT_PUBLIC_MONGO_DB;
+dotenv.config();
+
+let uri = process.env.MONGO_URI || "";
+console.log('uri', uri)
+let dbName = process.env.MONGO_DB;
 
 let cachedClient : MongoClient | null = null;
 let cachedDb : Db | null = null;
@@ -23,12 +27,27 @@ export async function connectToDatabase() {
     return { client: cachedClient, db: cachedDb };
   }
 
-  const client = await MongoClient.connect(uri);
+  try {
+    const client = new MongoClient(uri, {
+      serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+      }
+    });
 
-  const db = await client.db(dbName);
+    const db = await client.db(dbName);
+    console.log(dbName)
 
-  cachedClient = client;
-  cachedDb = db;
+    cachedClient = client;
+    cachedDb = db;
 
-  return { client, db };
+    return { client, db };
+
+  } catch(error) {
+    console.error("Failed to connect to the database", error);
+    throw new Error("Failed to connect to the database");
+  }
+
+  
 }

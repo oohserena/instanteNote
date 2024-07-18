@@ -30,3 +30,14 @@ yarn dev
 # or
 pnpm dev
 ```
+
+## Route Protection
+- use withPageAuthRequired
+
+## API Route Protection
+
+## Icons
+react-icons
+
+## Global State Management
+recoil - state management library for react
