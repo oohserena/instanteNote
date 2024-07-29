@@ -1,7 +1,7 @@
 import React from "react"
 
 export const metadata = {
-    title: 'New post | Bloomify',
+    title: 'New post | InstantNote',
     description: 'NextJS template with TypeScript, TailwindCSS, and MongoDB, created by @clipper.',
   }
 

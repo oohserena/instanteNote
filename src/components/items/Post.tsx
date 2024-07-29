@@ -2,6 +2,7 @@
 
 import React from "react";
 
+// Define the Props interface for the component
 interface Props {
   post: PostWithId;
   handleDeletePost: (_id: string) => void;

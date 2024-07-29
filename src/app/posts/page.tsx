@@ -11,9 +11,13 @@ import Post from "@/components/items/Post";
 export default withPageAuthRequired(function Page() {
   const [loadingPosts, setLoadingPosts] = useState(true);
   const [fetchedPosts, setFetchedPosts] = useState<PostWithId[]>([]);
+
+  // Fetch posts from the server when the component mounts
   useEffect(() => {
     async function fetchPosts() {
+      // Fetch posts using the getPosts function
       await getPosts().then((posts) => {
+        // Update the state with the fetched posts
         setFetchedPosts(posts);
         setLoadingPosts(false);
         console.log(posts);
@@ -26,6 +30,7 @@ export default withPageAuthRequired(function Page() {
     async function handler() {
       await deletePost(_id);
     }
+     // Remove the deleted post from the fetched posts state
     setFetchedPosts((prev) => prev.filter((post) => post._id !== _id));
     handler();
   }
