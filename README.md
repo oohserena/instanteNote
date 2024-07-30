@@ -78,6 +78,39 @@ Users can click the "Buy More Credits" button to navigate to the payment page an
 
 #### **Implementation**
 
+`src/app/api/webhook/stripe`
+
+Update credits in database 
+
+```javascript
+switch (event.type) {
+      case "payment_intent.succeeded":
+        const { db } = await connectToDatabase();
+        const paymentIntent = event.data.object as Stripe.PaymentIntent;
+        const uid = paymentIntent.metadata.uid;
+        console.log('uid', uid)
+
+        const profile = await db
+          .collection("profiles")
+          .find({ uid: uid })
+          .toArray();
+       
+        if (profile.length === 0) {
+          await db.collection("profiles").insertOne({
+            uid: uid,
+            credits: 10,
+          });
+        } else {
+          await db
+            .collection("profiles")
+            .updateOne({ uid: uid }, { $inc: { credits: 10 } });
+        }
+        break;
+      default:
+        console.log(`Unhandled event type ${event.type}`);
+    }
+```
+
 
 
 
