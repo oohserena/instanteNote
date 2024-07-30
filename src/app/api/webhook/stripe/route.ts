@@ -11,7 +11,6 @@ export async function POST(request: NextRequest, response: NextResponse) {
   try {
     const body = await request.text();
     const sig = request.headers.get("stripe-signature");
-    console.log('body', body)
 
     const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
     let event: Stripe.Event;
@@ -27,12 +26,13 @@ export async function POST(request: NextRequest, response: NextResponse) {
         const { db } = await connectToDatabase();
         const paymentIntent = event.data.object as Stripe.PaymentIntent;
         const uid = paymentIntent.metadata.uid;
+        console.log('uid', uid)
 
         const profile = await db
           .collection("profiles")
           .find({ uid: uid })
           .toArray();
-        console.log(profile)
+       
         if (profile.length === 0) {
           await db.collection("profiles").insertOne({
             uid: uid,

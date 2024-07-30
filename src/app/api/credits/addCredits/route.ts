@@ -39,11 +39,11 @@ export const POST = withApiAuthRequiredExtended(
         cancel_url: `${process.env.NEXT_PUBLIC_URL}/profile`,
         payment_intent_data: {
           metadata: {
-            userId: user.sub,
+            uid: user.sub,
           },
         },
         metadata: {
-          userId: user.sub,
+          uid: user.sub,
         },
       });
 

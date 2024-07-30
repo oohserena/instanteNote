@@ -11,6 +11,8 @@ InstantNote is an AI-powered web app where you can generate tech related notes b
 ### 1. **Instant Note Generation**
 InstantNote uses OpenAI API to generate comprehensive tech-related notes instantly. This feature solves the problem of time-consuming manual note-taking by providing relevant notes with just one-click.
 
+![Generate Posts](./assets/GeneratePosts.png)
+
 The following code snippet demonstrates how InstantNote uses the OpenAI API to create a detailed note based on user input:
 
 #### **Implementation**
@@ -40,7 +42,6 @@ The following code snippet demonstrates how InstantNote uses the OpenAI API to c
         temperature: 0.2,
       });
 ```
-![Generate Posts](./assets/GeneratePosts.png)
 
 ### 2. **View / Delete / Copy the Generated Posts**
 InstantNote enables you to manage your generated posts efficiently. Here’s how you can interact with your posts:
@@ -50,6 +51,8 @@ InstantNote enables you to manage your generated posts efficiently. Here’s how
 - Delete: Easily remove posts by clicking the "Delete" button. This action triggers a function to delete the post from your list and update the state accordingly.
 
 - Copy to Clipboard: Quickly copy the post’s title and content to your clipboard by clicking the "Copy" button. This functionality is designed to facilitate easy sharing and saving of your notes.
+
+![Get Posts](./assets/GetPosts.png)
 
 #### **Implementation**
 
@@ -64,6 +67,16 @@ The Page component is responsible for fetching and displaying a list of posts. I
 `src/app/api/posts/getPosts` & `src/app/api/posts/deletePost`
 
 getPosts API and deletePost API
+
+### 3.Credit System and Payments
+In this app, users can generate notes by spending credits. Each note costs 1 credit. To manage payments, we use the external payment service Stripe.
+
+Users can click the "Buy More Credits" button to navigate to the payment page and purchase additional credits. They can also view their remaining credit balance in their profile.
+
+![Click buy credits button](./assets/BuyCreditButton.png)
+![Payment page](./assets/PaymentPage.png)
+
+#### **Implementation**
 
 
 
