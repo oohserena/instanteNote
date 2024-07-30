@@ -62,7 +62,7 @@ export const POST = withApiAuthRequiredExtended(
             content: `Write me a title for a note about ${description}.
                     The keywords for the note are as follows: ${keywords}. The tag of the 
                     note should be ${tag}. The title should be SEO friendly and no longer than
-                    15 words. Write only one title. ${
+                    10 words. Write only one title. The title should be short and concise. ${
                       title.length > 0
                         ? `Take that title into consideration: ${title}.`
                         : ""
