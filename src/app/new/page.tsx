@@ -10,11 +10,15 @@ import { refectchCreditsAtom } from "@/atoms/flagAtom";
 import { useRecoilState } from "recoil";
 
 export default withPageAuthRequired(function Page() {
+  // State to store the generated post
   const [post, setPost] = useState<Post | null>(null);
+  // State to handle loading spinner
   const [isWaitingForResponse, setIsWaitingForResponse] = useState(false);
+  // State to check if form is submitted
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
+  // State to refetch credits using Recoil
   const [refetchCredits, setRefetchCredits] = useRecoilState(refectchCreditsAtom);
 
   const [postPrompt, setPostPrompt] = useState<PostPrompt>({
@@ -25,11 +29,11 @@ export default withPageAuthRequired(function Page() {
   });
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setHasSubmitted(true);
+    e.preventDefault(); // Prevent default form submission
+    setHasSubmitted(true); // Set hasSubmitted to true
     setError(false);
     setSuccess(false);
-    setIsWaitingForResponse(true);
+    setIsWaitingForResponse(true);  // Show loading spinner
 
     const res = await generatePost(postPrompt);
     setRefetchCredits((prev) => !prev);

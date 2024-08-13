@@ -20,7 +20,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
       
       return NextResponse.error();
     }
-    console.log("1", event.type)
+    
     switch (event.type) {
       case "payment_intent.succeeded":
         const { db } = await connectToDatabase();
